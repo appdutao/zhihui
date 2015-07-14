@@ -32,7 +32,13 @@ public class MainActivity extends SlidingFragmentActivity {
                 .replace(R.id.menu,menuFragment,"MENU")
                 .commit();
 
+
         BaseFragment homeFragment = new HomeFragment();
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.content_frame,homeFragment,"HOME")
+                .commit();
     }
 
 }

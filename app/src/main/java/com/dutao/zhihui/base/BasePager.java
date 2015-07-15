@@ -3,6 +3,11 @@ package com.dutao.zhihui.base;
 import android.content.Context;
 import android.view.View;
 
+import com.lidroid.xutils.HttpUtils;
+import com.lidroid.xutils.http.RequestParams;
+import com.lidroid.xutils.http.callback.RequestCallBack;
+import com.lidroid.xutils.http.client.HttpRequest;
+
 /**
  * com.dutao.zhihui.base
  * Created by dutao on 2015/7/14.
@@ -38,4 +43,16 @@ public abstract class BasePager {
      * 抽象初始化数据方法，需子类实现
      */
     public abstract void initData();
+
+    /**
+     * 通用发送请求方法封装
+     * @param method
+     * @param url
+     * @param params
+     * @param callBack
+     */
+    public void getDataFromUrl(HttpRequest.HttpMethod method,String url,RequestParams params, RequestCallBack callBack){
+        HttpUtils httpUtils = new HttpUtils();
+        httpUtils.send(method,url,params,callBack);
+    }
 }

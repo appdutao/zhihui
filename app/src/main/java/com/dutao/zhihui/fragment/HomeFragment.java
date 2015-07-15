@@ -3,7 +3,6 @@ package com.dutao.zhihui.fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +16,8 @@ import com.dutao.zhihui.pager.GovAffairsPager;
 import com.dutao.zhihui.pager.NewsCenterPager;
 import com.dutao.zhihui.pager.SettingPager;
 import com.dutao.zhihui.pager.SmartServicePager;
+import com.dutao.zhihui.view.LazyViewPager;
+import com.dutao.zhihui.view.MyViewPager;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 
@@ -30,7 +31,7 @@ import java.util.List;
 public class HomeFragment extends BaseFragment {
 
     @ViewInject(R.id.layout_content)
-    private ViewPager layout_content;
+    private MyViewPager layout_content;
     @ViewInject(R.id.main_radio)
     private RadioGroup main_radio;
 
@@ -80,9 +81,30 @@ public class HomeFragment extends BaseFragment {
         pagerList.add(new SettingPager(context));
 
         layout_content.setAdapter(new MyAdapter());
+
+        layout_content.setOnPageChangeListener(new LazyViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                BasePager basePager = pagerList.get(position);
+                basePager.initData();
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+        //默认展示新闻中心
+        layout_content.setCurrentItem(1);
+        pagerList.get(1).initData();
     }
 
-    class MyAdapter extends PagerAdapter{
+    class MyAdapter extends PagerAdapter {
 
         @Override
         public int getCount() {
@@ -96,13 +118,13 @@ public class HomeFragment extends BaseFragment {
 
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
-            ((ViewPager)container).addView(pagerList.get(position).getRootView());
+            ((MyViewPager)container).addView(pagerList.get(position).getRootView());
             return pagerList.get(position).getRootView();
         }
 
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
-            ((ViewPager)container).removeView((View)object);
+            ((MyViewPager)container).removeView((View)object);
         }
     }
 

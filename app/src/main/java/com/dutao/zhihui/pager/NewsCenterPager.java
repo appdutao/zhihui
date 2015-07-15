@@ -6,6 +6,7 @@ import android.widget.TextView;
 
 import com.dutao.zhihui.R;
 import com.dutao.zhihui.base.BasePager;
+import com.lidroid.xutils.HttpUtils;
 
 /**
  * com.dutao.zhihui.pager
@@ -25,6 +26,7 @@ public class NewsCenterPager extends BasePager {
 
     @Override
     public void initData() {
-
+        HttpUtils httpUtils = new HttpUtils();
+//        httpUtils.send(HttpRequest.HttpMethod.GET,"URL", RequestParams,CALLBACK);
     }
 }

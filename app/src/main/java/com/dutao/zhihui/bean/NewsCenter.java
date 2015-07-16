@@ -13,7 +13,7 @@ public class NewsCenter {
     public class NewsCenterItem{
         public List<Chidren> children;
         public Integer id;
-        public String tittle;
+        public String title;
         public Integer type;
         public String url;
         public String url1;
@@ -24,7 +24,7 @@ public class NewsCenter {
 
     public class Chidren{
         public Integer id;
-        public String tittle;
+        public String title;
         public Integer type;
         public String url;
     }

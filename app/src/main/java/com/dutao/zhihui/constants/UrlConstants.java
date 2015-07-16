@@ -8,6 +8,6 @@ public class UrlConstants {
     public static final String BASE_ENCODING = "UTF-8";
 
 
-    public static final String BASE_URL = "http://http://172.16.176.30:8080/qbc";
-    public static final String NEWS_CENTER_CATEGORIES = BASE_URL + "/" + "categories.json";
+    public static  String BASE_URL = "http://192.168.1.105:8080/qbc";
+    public static  String NEWS_CENTER_CATEGORIES = BASE_URL + "/" + "categories.json";
 }

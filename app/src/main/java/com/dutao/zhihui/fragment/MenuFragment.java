@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -22,12 +23,15 @@ import java.util.List;
  */
 public class MenuFragment extends BaseFragment {
 
-    public List<String> tittleList;
+    public BaseAdapter adapter;
+    public List<String> titleList;
 
     @ViewInject(R.id.lv_menu_news_center)
     public ListView lv_menu_news_center;
 
     public View layout_item_menu;
+
+    public int currentPosition = 0;//默认选中侧拉栏第一个标题
 
     @Override
     public View initView(LayoutInflater inflater) {
@@ -46,8 +50,16 @@ public class MenuFragment extends BaseFragment {
      * @param tittleList    标题集合
      */
     public void initMenu(List<String> tittleList) {
-        this.tittleList = tittleList;
-        lv_menu_news_center.setAdapter(new MyAdapter());
+        this.titleList = tittleList;
+        adapter = new MyAdapter();
+        lv_menu_news_center.setAdapter(adapter);
+        lv_menu_news_center.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                currentPosition = position;
+                adapter.notifyDataSetChanged();
+            }
+        });
     }
 
     /**
@@ -57,12 +69,12 @@ public class MenuFragment extends BaseFragment {
 
         @Override
         public int getCount() {
-            return tittleList.size();
+            return titleList.size();
         }
 
         @Override
         public Object getItem(int position) {
-            return tittleList.get(position);
+            return titleList.get(position);
         }
 
         @Override
@@ -82,7 +94,17 @@ public class MenuFragment extends BaseFragment {
             }else{
                 viewHolder = (ViewHolder)convertView.getTag();
             }
-            viewHolder.tv_menu_item.setText(tittleList.get(position));
+            viewHolder.tv_menu_item.setText(titleList.get(position));
+
+            if (currentPosition == position){
+                viewHolder.iv_menu_item.setImageResource(R.drawable.menu_arr_select);
+                viewHolder.tv_menu_item.setTextColor(context.getResources().getColor(R.color.red));
+                convertView.setBackgroundResource(R.drawable.menu_item_bg_select);
+            }else{
+                viewHolder.iv_menu_item.setImageResource(R.drawable.menu_arr_normal);
+                viewHolder.tv_menu_item.setTextColor(context.getResources().getColor(R.color.white));
+                convertView.setBackgroundResource(R.drawable.transparent);
+            }
             return convertView;
         }
     }

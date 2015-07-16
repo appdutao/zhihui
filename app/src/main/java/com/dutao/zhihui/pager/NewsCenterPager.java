@@ -2,6 +2,7 @@ package com.dutao.zhihui.pager;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -53,15 +54,16 @@ public class NewsCenterPager extends BasePager {
     private void getNewsCenterData() {
         RequestParams requestParams = new RequestParams(UrlConstants.BASE_ENCODING);
         requestParams.addBodyParameter("key","value");
-        getDataFromUrl(HttpRequest.HttpMethod.GET, UrlConstants.NEWS_CENTER_CATEGORIES, requestParams, new RequestCallBack<String>() {
+        getDataFromUrl(HttpRequest.HttpMethod.GET, UrlConstants.NEWS_CENTER_CATEGORIES, null, new RequestCallBack<Object>() {
             @Override
-            public void onSuccess(ResponseInfo<String> responseInfo) {
-                processData(responseInfo.result);
+            public void onSuccess(ResponseInfo<Object> responseInfo) {
+                SharepreferenceUtil.saveData2Sp(context, UrlConstants.NEWS_CENTER_CATEGORIES, (String) responseInfo.result);
+                processData((String)responseInfo.result);
             }
 
             @Override
             public void onFailure(HttpException e, String s) {
-
+                Log.i("FAIL",s);
             }
         });
     }
@@ -74,7 +76,7 @@ public class NewsCenterPager extends BasePager {
         NewsCenter newsCenter = GsonUtil.json2Bean(result,NewsCenter.class);
         List<String> tittleList = new ArrayList<String>();
         for (int i = 0; i < newsCenter.data.size(); i++) {
-            tittleList.add(newsCenter.data.get(i).tittle);
+            tittleList.add(newsCenter.data.get(i).title);
         }
         MenuFragment menuFragment = (MenuFragment)((MainActivity) context).switchFragment("MENU");
         menuFragment.initMenu(tittleList);

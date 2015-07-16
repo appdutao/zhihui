@@ -100,8 +100,8 @@ public class HomeFragment extends BaseFragment {
             }
         });
         //默认展示新闻中心
-        layout_content.setCurrentItem(1);
-        pagerList.get(1).initData();
+        layout_content.setCurrentItem(0);
+        pagerList.get(0).initData();
     }
 
     class MyAdapter extends PagerAdapter {

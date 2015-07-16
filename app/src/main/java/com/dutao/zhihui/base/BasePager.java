@@ -51,7 +51,7 @@ public abstract class BasePager {
      * @param params    参数设置
      * @param callBack  回调
      */
-    public void getDataFromUrl(HttpRequest.HttpMethod method,String url,RequestParams params, RequestCallBack<String> callBack){
+    public void getDataFromUrl(HttpRequest.HttpMethod method,String url,RequestParams params, RequestCallBack<Object> callBack){
         HttpUtils httpUtils = new HttpUtils();
         httpUtils.send(method,url,params,callBack);
     }

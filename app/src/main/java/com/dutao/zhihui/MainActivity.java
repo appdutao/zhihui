@@ -41,4 +41,12 @@ public class MainActivity extends SlidingFragmentActivity {
                 .commit();
     }
 
+    /**
+     * 根据tag获取对应的Fragment
+     * @param tag   tag
+     * @return      对应tag的Fragment
+     */
+    public BaseFragment switchFragment(String tag){
+        return (BaseFragment)getSupportFragmentManager().findFragmentByTag(tag);
+    }
 }

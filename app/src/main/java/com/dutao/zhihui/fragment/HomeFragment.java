@@ -104,6 +104,14 @@ public class HomeFragment extends BaseFragment {
         pagerList.get(0).initData();
     }
 
+    /**
+     * 获取当前的pagerList
+     * @return
+     */
+    public NewsCenterPager getPagerList(){
+        return (NewsCenterPager)pagerList.get(1);
+    }
+
     class MyAdapter extends PagerAdapter {
 
         @Override

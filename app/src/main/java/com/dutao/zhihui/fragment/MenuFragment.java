@@ -1,5 +1,6 @@
 package com.dutao.zhihui.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,8 +11,11 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.dutao.zhihui.MainActivity;
+import com.dutao.zhihui.MyBaseAdapter;
 import com.dutao.zhihui.R;
 import com.dutao.zhihui.base.BaseFragment;
+import com.dutao.zhihui.constants.Constants;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 
@@ -47,17 +51,20 @@ public class MenuFragment extends BaseFragment {
 
     /**
      * 根据数据加载对应侧拉栏标题
-     * @param tittleList    标题集合
+     * @param titleList    标题集合
      */
-    public void initMenu(List<String> tittleList) {
-        this.titleList = tittleList;
-        adapter = new MyAdapter();
+    public void initMenu(List<String> titleList,int radioPosition) {
+        this.titleList = titleList;
+        adapter = new MyAdapter(context,titleList);
         lv_menu_news_center.setAdapter(adapter);
         lv_menu_news_center.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 currentPosition = position;
                 adapter.notifyDataSetChanged();
+
+                HomeFragment homeFragment = (HomeFragment) ((MainActivity) context).switchFragment(Constants.TAG_HOME);
+//                homeFragment.getPagerList().
             }
         });
     }
@@ -65,21 +72,10 @@ public class MenuFragment extends BaseFragment {
     /**
      * ListView适配器
      */
-    class MyAdapter extends BaseAdapter{
+    class MyAdapter extends MyBaseAdapter<String>{
 
-        @Override
-        public int getCount() {
-            return titleList.size();
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return titleList.get(position);
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return position;
+        public MyAdapter(Context context, List<String> list) {
+            super(context, list);
         }
 
         @Override

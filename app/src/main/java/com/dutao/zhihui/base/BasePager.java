@@ -13,6 +13,7 @@ import com.lidroid.xutils.http.client.HttpRequest;
  * Created by dutao on 2015/7/14.
  */
 public abstract class BasePager {
+
     public Context context;
     public View view;
 

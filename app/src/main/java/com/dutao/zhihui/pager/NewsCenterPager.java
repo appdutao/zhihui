@@ -10,6 +10,7 @@ import com.dutao.zhihui.MainActivity;
 import com.dutao.zhihui.R;
 import com.dutao.zhihui.base.BasePager;
 import com.dutao.zhihui.bean.NewsCenter;
+import com.dutao.zhihui.constants.Constants;
 import com.dutao.zhihui.constants.UrlConstants;
 import com.dutao.zhihui.fragment.MenuFragment;
 import com.dutao.zhihui.util.GsonUtil;
@@ -28,6 +29,8 @@ import java.util.List;
  * Created by dutao on 2015/7/14.
  */
 public class NewsCenterPager extends BasePager {
+    public List<BasePager> menuPagersList;
+
     public NewsCenterPager(Context context) {
         super(context);
     }
@@ -67,18 +70,32 @@ public class NewsCenterPager extends BasePager {
             }
         });
     }
-
     /**
      * 公用处理数据方法
      * @param result
      */
-    private void processData(String result) {
-        NewsCenter newsCenter = GsonUtil.json2Bean(result,NewsCenter.class);
+    public void processData(String result) {
+        NewsCenter newsCenter = GsonUtil.json2Bean(result, NewsCenter.class);
         List<String> tittleList = new ArrayList<String>();
         for (int i = 0; i < newsCenter.data.size(); i++) {
             tittleList.add(newsCenter.data.get(i).title);
         }
-        MenuFragment menuFragment = (MenuFragment)((MainActivity) context).switchFragment("MENU");
-        menuFragment.initMenu(tittleList);
+        MenuFragment menuFragment = (MenuFragment)((MainActivity) context).switchFragment(Constants.TAG_MENU);
+        menuFragment.initMenu(tittleList,1);
+
+        menuPagersList = new ArrayList<BasePager>();
+        menuPagersList.add(new NewsMenuPager(context,newsCenter.data.get(0)));
+        menuPagersList.add(new PicMenuPager(context,newsCenter.data.get(1)));
+        menuPagersList.add(new TopicMenuPager(context, newsCenter.data.get(2)));
+        menuPagersList.add(new IntMenuPager(context, newsCenter.data.get(3)));
+
+    }
+
+    /**
+     * 获取对应的MenuPagerList
+     * @return  当前的MenuPagerList
+     */
+    public List<BasePager> getMenuPagerList(int position){
+        return menuPagersList;
     }
 }

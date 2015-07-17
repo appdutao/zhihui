@@ -3,6 +3,7 @@ package com.dutao.zhihui;
 import android.os.Bundle;
 
 import com.dutao.zhihui.base.BaseFragment;
+import com.dutao.zhihui.constants.Constants;
 import com.dutao.zhihui.fragment.HomeFragment;
 import com.dutao.zhihui.fragment.MenuFragment;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
@@ -29,7 +30,7 @@ public class MainActivity extends SlidingFragmentActivity {
 
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.menu,menuFragment,"MENU")
+                .replace(R.id.menu,menuFragment, Constants.TAG_MENU)
                 .commit();
 
 
@@ -37,7 +38,7 @@ public class MainActivity extends SlidingFragmentActivity {
 
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.content_frame,homeFragment,"HOME")
+                .replace(R.id.content_frame,homeFragment,Constants.TAG_HOME)
                 .commit();
     }
 

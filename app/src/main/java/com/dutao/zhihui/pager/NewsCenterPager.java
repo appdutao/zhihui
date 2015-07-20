@@ -4,7 +4,7 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.RelativeLayout;
 
 import com.dutao.zhihui.MainActivity;
 import com.dutao.zhihui.R;
@@ -15,6 +15,7 @@ import com.dutao.zhihui.constants.UrlConstants;
 import com.dutao.zhihui.fragment.MenuFragment;
 import com.dutao.zhihui.util.GsonUtil;
 import com.dutao.zhihui.util.SharepreferenceUtil;
+import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseInfo;
@@ -30,6 +31,7 @@ import java.util.List;
  */
 public class NewsCenterPager extends BasePager {
     public List<BasePager> menuPagersList;
+    private NewsCenter newsCenter;
 
     public NewsCenterPager(Context context) {
         super(context);
@@ -37,9 +39,12 @@ public class NewsCenterPager extends BasePager {
 
     @Override
     public View initView() {
-        TextView textView = new TextView(context);
-        textView.setText(R.string.tab_news_center);
-        return textView;
+        view = (RelativeLayout) View.inflate(context, R.layout.news_center_frame, null);
+        ViewUtils.inject(this,view);
+        initTitleBar();
+//        TextView textView = new TextView(context);
+//        textView.setText(R.string.tab_news_center);
+        return view;
     }
 
     @Override
@@ -75,7 +80,7 @@ public class NewsCenterPager extends BasePager {
      * @param result
      */
     public void processData(String result) {
-        NewsCenter newsCenter = GsonUtil.json2Bean(result, NewsCenter.class);
+        newsCenter = GsonUtil.json2Bean(result, NewsCenter.class);
         List<String> tittleList = new ArrayList<String>();
         for (int i = 0; i < newsCenter.data.size(); i++) {
             tittleList.add(newsCenter.data.get(i).title);
@@ -96,6 +101,7 @@ public class NewsCenterPager extends BasePager {
      * @return  当前的MenuPagerList
      */
     public List<BasePager> getMenuPagerList(int position){
+        txt_title.setText(newsCenter.data.get(0).title);
         return menuPagersList;
     }
 }

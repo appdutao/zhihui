@@ -2,11 +2,18 @@ package com.dutao.zhihui.base;
 
 import android.content.Context;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
+import com.dutao.zhihui.MainActivity;
+import com.dutao.zhihui.R;
+import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
+import com.lidroid.xutils.view.annotation.ViewInject;
 
 /**
  * com.dutao.zhihui.base
@@ -16,6 +23,20 @@ public abstract class BasePager {
 
     public Context context;
     public View view;
+    public SlidingMenu slidingMenu;
+
+    @ViewInject(R.id.btn_left)
+    public Button btn_left;
+    @ViewInject(R.id.imgbtn_left)
+    public ImageButton imgbtn_left;
+    @ViewInject(R.id.imgbtn_text)
+    public ImageButton imgbtn_text;
+    @ViewInject(R.id.imgbtn_right)
+    public ImageButton imgbtn_right;
+    @ViewInject(R.id.imgbtn_left)
+    public Button btn_right;
+    @ViewInject(R.id.txt_title)
+    public TextView txt_title;
 
     /**
      * 构造方法-调用initView方法返回对应View
@@ -55,5 +76,22 @@ public abstract class BasePager {
     public void getDataFromUrl(HttpRequest.HttpMethod method,String url,RequestParams params, RequestCallBack<Object> callBack){
         HttpUtils httpUtils = new HttpUtils();
         httpUtils.send(method,url,params,callBack);
+    }
+
+    /**
+     * 公共初始化页面上面的TitleBar
+     */
+    public void initTitleBar(){
+        btn_left.setVisibility(View.GONE);
+        imgbtn_left.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                slidingMenu = ((MainActivity) context).getSlidingMenu();
+                slidingMenu.toggle();
+            }
+        });
+        imgbtn_text.setVisibility(View.GONE);
+        imgbtn_left.setVisibility(View.GONE);
+        imgbtn_right.setVisibility(View.GONE);
     }
 }

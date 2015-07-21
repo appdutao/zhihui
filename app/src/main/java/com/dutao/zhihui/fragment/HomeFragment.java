@@ -108,7 +108,7 @@ public class HomeFragment extends BaseFragment {
      * 获取当前的pagerList
      * @return
      */
-    public NewsCenterPager getPagerList(){
+    public NewsCenterPager getNewsCenterPager(){
         return (NewsCenterPager)pagerList.get(1);
     }
 

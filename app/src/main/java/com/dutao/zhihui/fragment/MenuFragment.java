@@ -16,6 +16,7 @@ import com.dutao.zhihui.MyBaseAdapter;
 import com.dutao.zhihui.R;
 import com.dutao.zhihui.base.BaseFragment;
 import com.dutao.zhihui.constants.Constants;
+import com.dutao.zhihui.pager.NewsCenterPager;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 
@@ -64,7 +65,10 @@ public class MenuFragment extends BaseFragment {
                 adapter.notifyDataSetChanged();
 
                 HomeFragment homeFragment = (HomeFragment) ((MainActivity) context).switchFragment(Constants.TAG_HOME);
-//                homeFragment.getPagerList().
+                NewsCenterPager newsCenterPager = (NewsCenterPager)homeFragment.getNewsCenterPager();
+                newsCenterPager.getMenuPager(position);
+
+                slidingMenu.toggle();
             }
         });
     }

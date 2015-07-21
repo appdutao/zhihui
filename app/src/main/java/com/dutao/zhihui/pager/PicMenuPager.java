@@ -2,6 +2,7 @@ package com.dutao.zhihui.pager;
 
 import android.content.Context;
 import android.view.View;
+import android.widget.TextView;
 
 import com.dutao.zhihui.base.BasePager;
 import com.dutao.zhihui.bean.NewsCenter;
@@ -26,7 +27,9 @@ public class PicMenuPager extends BasePager {
      */
     @Override
     public View initView() {
-        return null;
+        TextView textView = new TextView(context);
+        textView.setText("组图");
+        return textView;
     }
 
     /**

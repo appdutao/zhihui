@@ -10,6 +10,7 @@ import com.dutao.zhihui.MainActivity;
 import com.dutao.zhihui.R;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.lidroid.xutils.HttpUtils;
+import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
@@ -33,8 +34,8 @@ public abstract class BasePager {
     public ImageButton imgbtn_text;
     @ViewInject(R.id.imgbtn_right)
     public ImageButton imgbtn_right;
-    @ViewInject(R.id.imgbtn_left)
-    public Button btn_right;
+    @ViewInject(R.id.btn_right)
+    public ImageButton btn_right;
     @ViewInject(R.id.txt_title)
     public TextView txt_title;
 
@@ -82,6 +83,15 @@ public abstract class BasePager {
      * 公共初始化页面上面的TitleBar
      */
     public void initTitleBar(){
+        View layout_title_bar = View.inflate(context, R.layout.layout_title_bar, null);
+        ViewUtils.inject(this,layout_title_bar);
+        btn_left = (Button)layout_title_bar.findViewById(R.id.btn_left);
+        imgbtn_left = (ImageButton)layout_title_bar.findViewById(R.id.imgbtn_left);
+        imgbtn_text = (ImageButton)layout_title_bar.findViewById(R.id.imgbtn_text);
+        imgbtn_right = (ImageButton)layout_title_bar.findViewById(R.id.imgbtn_right);
+        btn_right = (ImageButton)layout_title_bar.findViewById(R.id.btn_right);
+        txt_title = (TextView)layout_title_bar.findViewById(R.id.txt_title);
+
         btn_left.setVisibility(View.GONE);
         imgbtn_left.setOnClickListener(new View.OnClickListener() {
             @Override

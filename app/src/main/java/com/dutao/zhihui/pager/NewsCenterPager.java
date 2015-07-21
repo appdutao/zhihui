@@ -4,6 +4,7 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
 import com.dutao.zhihui.MainActivity;
@@ -21,6 +22,7 @@ import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
+import com.lidroid.xutils.view.annotation.ViewInject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +34,10 @@ import java.util.List;
 public class NewsCenterPager extends BasePager {
     public List<BasePager> menuPagersList;
     private NewsCenter newsCenter;
+    private List<String> tittleList;//侧拉栏标题集合
+
+    @ViewInject(R.id.news_center_fl)
+    private FrameLayout news_center_fl;
 
     public NewsCenterPager(Context context) {
         super(context);
@@ -59,6 +65,10 @@ public class NewsCenterPager extends BasePager {
 
     }
 
+    /**
+     * 第一次获取的数据
+     * 【新闻中心的JSON数据，解析后得到左侧侧拉栏以及主页面顶部数据】
+     */
     private void getNewsCenterData() {
         RequestParams requestParams = new RequestParams(UrlConstants.BASE_ENCODING);
         requestParams.addBodyParameter("key","value");
@@ -77,11 +87,12 @@ public class NewsCenterPager extends BasePager {
     }
     /**
      * 公用处理数据方法
+     * 1.初始化左侧侧拉栏Menu 2.默认点击左侧侧拉栏第一个栏目，主页面显示Title以及下面的FramLayout
      * @param result
      */
     public void processData(String result) {
         newsCenter = GsonUtil.json2Bean(result, NewsCenter.class);
-        List<String> tittleList = new ArrayList<String>();
+        tittleList = new ArrayList<String>();
         for (int i = 0; i < newsCenter.data.size(); i++) {
             tittleList.add(newsCenter.data.get(i).title);
         }
@@ -94,14 +105,18 @@ public class NewsCenterPager extends BasePager {
         menuPagersList.add(new TopicMenuPager(context, newsCenter.data.get(2)));
         menuPagersList.add(new IntMenuPager(context, newsCenter.data.get(3)));
 
+        getMenuPager(0);//默认显示第0个的新闻
     }
 
     /**
-     * 获取对应的MenuPagerList
+     * 获取对应的getMenuPager
      * @return  当前的MenuPagerList
      */
-    public List<BasePager> getMenuPagerList(int position){
-        txt_title.setText(newsCenter.data.get(0).title);
-        return menuPagersList;
+    public void getMenuPager(int position){
+        //设置页面TitleBar
+        txt_title.setText(tittleList.get(position));
+
+        news_center_fl.removeAllViews();
+        news_center_fl.addView(menuPagersList.get(position).getRootView());
     }
 }

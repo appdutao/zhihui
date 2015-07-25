@@ -1,6 +1,7 @@
 package com.dutao.zhihui;
 
 import android.os.Bundle;
+import android.view.Window;
 
 import com.dutao.zhihui.base.BaseFragment;
 import com.dutao.zhihui.constants.Constants;
@@ -15,6 +16,7 @@ public class MainActivity extends SlidingFragmentActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.content);
 
         setBehindContentView(R.layout.menu_frame);

@@ -34,7 +34,8 @@ import java.util.List;
 public class NewsCenterPager extends BasePager {
     public List<BasePager> menuPagersList;
     private NewsCenter newsCenter;
-    private List<String> tittleList;//侧拉栏标题集合
+    public List<String> tittleList;//侧拉栏标题集合
+
 
     @ViewInject(R.id.news_center_fl)
     private FrameLayout news_center_fl;
@@ -118,5 +119,6 @@ public class NewsCenterPager extends BasePager {
 
         news_center_fl.removeAllViews();
         news_center_fl.addView(menuPagersList.get(position).getRootView());
+        menuPagersList.get(position).initData();
     }
 }

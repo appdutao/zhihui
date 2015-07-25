@@ -71,7 +71,7 @@ public class NewsMenuPager extends BasePager {
         }else{
             pagerAdapter.notifyDataSetChanged();
         }
-
+        indicator.setVisibility(View.VISIBLE);
         indicator.setViewPager(pager);
 
         indicator.setCurrentItem(0);

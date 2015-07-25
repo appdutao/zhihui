@@ -15,6 +15,7 @@
         <!-- 当前控件可用去指定底部viewpager的显示,一一对应(1,1) -->
         <com.dutao.zhihui.view.pagerindicator.TabPageIndicator
             android:id="@+id/indicator"
+            android:visibility="gone"
             style="@style/Theme.PageIndicatorDefaults"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

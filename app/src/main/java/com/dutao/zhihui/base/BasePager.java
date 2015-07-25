@@ -26,6 +26,7 @@ public abstract class BasePager {
     public View view;
     public SlidingMenu slidingMenu;
 
+
     @ViewInject(R.id.btn_left)
     public Button btn_left;
     @ViewInject(R.id.imgbtn_left)
@@ -44,6 +45,7 @@ public abstract class BasePager {
      * @param context   上下文参数
      */
     public BasePager(Context context) {
+        slidingMenu = ((MainActivity) context).getSlidingMenu();
         this.context = context;
         view = initView();
     }
@@ -91,12 +93,10 @@ public abstract class BasePager {
         imgbtn_right = (ImageButton)layout_title_bar.findViewById(R.id.imgbtn_right);
         btn_right = (ImageButton)layout_title_bar.findViewById(R.id.btn_right);
         txt_title = (TextView)layout_title_bar.findViewById(R.id.txt_title);
-
         btn_left.setVisibility(View.GONE);
         imgbtn_left.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                slidingMenu = ((MainActivity) context).getSlidingMenu();
                 slidingMenu.toggle();
             }
         });

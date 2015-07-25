@@ -12,6 +12,7 @@
         style="@style/style_title_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:layout_marginLeft="5dp"
         android:padding="5dp"
         android:text="" />
@@ -37,10 +38,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:visibility="visible"
             android:drawablePadding="5dp"
             android:gravity="center"
             android:singleLine="true"
-            android:text="" />
+            android:text="11111" />
     </RelativeLayout>
 
     <ImageButton

@@ -29,6 +29,7 @@ public class NewsContentPager extends BasePager {
 
     @Override
     public void initData() {
+
         textView.setText(url);
     }
 }
